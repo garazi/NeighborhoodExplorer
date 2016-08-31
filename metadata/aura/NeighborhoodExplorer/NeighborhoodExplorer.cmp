@@ -1,0 +1,99 @@
+<aura:component controller="NeighborhoodServiceController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <force:recordPreview recordId="{!v.recordId}" targetRecord="{!v.currentRecord}" layoutType="FULL" />
+    <aura:attribute name="currentRecord" type="Contact" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="map" type="Object" />
+    <aura:attribute name="markers" type="Object" />
+    <aura:attribute name="location" type="String"  />
+    <aura:attribute name="defaultSearch" type="String" default="Schools" />
+    <aura:attribute name="dateTime" type="Integer" />
+    <aura:attribute name="resultList" type="Object[]" access="global" />
+
+    <aura:handler name="change" value="{!v.currentRecord}" action="{!c.recordUpdated}" />
+    <aura:handler name="change" value="{!v.resultList}" action="{!c.hideSpinner}" />
+    
+    <div class="slds-box small" aura:id="main">
+        <h2 class="slds-text-heading--medium slds-m-bottom--medium">Neighborhood Explorer</h2>
+        <c.LeafletMap class="slds-m-bottom--small" location="{!v.location}" markers="{!v.markers}" />
+        <lightning:layout multipleRows="false">
+        <lightning:layoutItem flexibility="auto" class="slds-m-right--small">
+            <lightning:input aura:id="searchTerm" name="searchTerm" label="Search" placeholder="New Search" />
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="no-grow" >
+            <lightning:button label="Search" onclick="{!c.updateLocation}"/>
+        </lightning:layoutItem>
+    </lightning:layout>      
+        <lightning:tabset variant="scoped" selectedTabId="schoolList" aura:id="myTabs" onselect="{!c.selectedTab}">
+            <lightning:tab label="Schools" title="List of restaurants nearby" id="schoolList" onfocus="{!c.recordUpdated}" >
+                    <div class="tab-content-wrapper">
+                            <div class="slds-hide" aura:id="spinner">
+                                <lightning:spinner size="medium" />
+                            </div>
+                            <div class="slds-scrollable--y scroll-container" aura:id="scrollableArea">
+                            <ul class="slds-list--vertical slds-has-dividers--top-space">
+                                <aura:iteration items="{!v.resultList}" var="item" indexVar="i">
+                                    <li class="slds-list__item" onclick="{!c.showDetails}" data-record="{!i}">
+                                        <h3 class="slds-text-heading--small slds-m-bottom--x-small">{!item.name}</h3>
+                                        <img src="{!item.ratingImg}" alt="" class="ratingStars" />
+                                        <div class="slds-hide slds-m-top--medium" data-details="{!i}">
+                                            <ul class="slds-list--vertical">
+                                                <li class="slds-list__item">{!item.address}</li>
+                                                <li class="slds-list__item">{!item.city}, {!item.state}</li>
+                                                <li class="slds-list__item">{!item.phone}</li>
+                                            </ul>
+                                            <div class="slds-media slds-m-top--medium">
+                                                <div class="slds-media__figure">
+                                                    <img src="{!item.image}" class="slds-avatar--large slds-avatar--circle" alt="Placeholder" />
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <p>{!item.review}</p>
+                                                </div>
+                                            </div>                          
+                                        </div>
+                                    </li>
+                                </aura:iteration>
+                            </ul>
+                            </div>
+            </div>
+            </lightning:tab>
+            <lightning:tab label="Shopping" title="List of stores nearby" id="shoppingList" onfocus="{!c.doSomething}">
+            <div class="tab-content-wrapper">
+                    <div class="slds-hide" aura:id="spinner2">
+                        <lightning:spinner size="medium" />
+                    </div>
+                <div class="slds-scrollable--y scroll-container" aura:id="scrollableArea">
+                <ul class="slds-list--vertical slds-has-dividers--top-space">
+                    <aura:iteration items="{!v.resultList}" var="item" indexVar="i">
+                        <li class="slds-list__item" onclick="{!c.showDetails}" data-record="{!i}">
+                            <h3 class="slds-text-heading--small slds-m-bottom--x-small">{!item.name}</h3>
+                            <img src="{!item.ratingImg}" alt="" class="ratingStars" />
+                            <div class="slds-hide slds-m-top--medium" data-details="{!i}">
+                                <ul class="slds-list--vertical">
+                                    <li class="slds-list__item">{!item.address}</li>
+                                    <li class="slds-list__item">{!item.city}, {!item.state}</li>
+                                    <li class="slds-list__item">{!item.phone}</li>
+                                </ul>
+                                <div class="slds-media slds-m-top--medium">
+                                    <div class="slds-media__figure">
+                                        <img src="{!item.image}" class="slds-avatar--large slds-avatar--circle" alt="Placeholder" />
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <p>{!item.review}</p>
+                                    </div>
+                                </div>                          
+                            </div>
+                        </li>
+                    </aura:iteration>
+                </ul>
+            </div></div>
+            </lightning:tab>
+            <lightning:tab label="Restaurants" title="List of restaurants nearby" id="restaurantList">
+                <div class="tab-content-wrapper">
+                    <div class="slds-hide" aura:id="spinner">
+                        <lightning:spinner size="medium" />
+                    </div>
+                    </div>
+            </lightning:tab>
+        </lightning:tabset>
+    </div>
+</aura:component>
