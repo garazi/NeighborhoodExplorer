@@ -17,7 +17,7 @@
     },
     updateLocation: function(component, event, helper) {
         var searchTerm = component.find("searchTerm").get("v.value");
-        component.set("v.location", searchTerm);
+        // component.set("v.location", searchTerm);
     },
     doSomething: function(component, event, helper) {
         // var tab = event.target;

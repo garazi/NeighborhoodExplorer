@@ -11,15 +11,16 @@
         action.setCallback(this, function(response) {
             var data = JSON.parse(response.getReturnValue());
             console.log("data: ", data);
+            console.log("location: ", data.location);
             component.set("v.resultList", data.bizArray);
-            this.populateList(component);
+            component.set("v.location", data.location);
+            this.populateList(component, data);
         });
         action.setStorable();
         $A.enqueueAction(action);
     },
-    populateList: function(component) {
+    populateList: function(component, data) {
         console.log("populating list");
-        // this.hideSpinner(component);
     },
     hideSpinner: function(component) {
         console.log("hiding the spinner");
