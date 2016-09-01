@@ -23,7 +23,7 @@
         var recordLoc = component.get("v.location");
         if (!map) {
             var mapElement = component.find("leafletMap").getElement();
-            map = L.map(mapElement, { zoomControl: true }).setView([recordLoc.latitude, recordLoc.longitude], 10);
+            map = L.map(mapElement, { zoomControl: true }).setView([recordLoc.latitude, recordLoc.longitude], 14);
             L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles © Esri', reuseTiles: true }).addTo(map);
             component.set("v.mapObj", map);
             var orgLoc = L.marker([recordLoc.latitude, recordLoc.longitude]).addTo(map);
@@ -36,8 +36,9 @@
         var markers = component.get("v.markers");
         var markersLength = markers.length;
         for(var i=0; i<markersLength; i++) {
-            var tmp = markers[i].location.latitude;
+            var tmp = markers[i].location;
             console.log(i + ": " + tmp);
+            var fooLoc = L.marker([tmp.latitude, tmp.longitude]).addTo(map);
         }
         // console.log('map: ', map);
         // console.log(component.get("v.location"));
