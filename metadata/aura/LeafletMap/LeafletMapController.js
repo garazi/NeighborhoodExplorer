@@ -30,23 +30,17 @@
             // var fooLoc = L.marker([37.8361237, -122.5139523]).addTo(map);
             // var fooLoc = L.marker([37.828486,-122.40907]).addTo(map);
             // var fooLoc = L.marker([37.4440882,-122.0302674]).addTo(map);
-            // var markersLayer = new L.FeatureGroup();
-            // component.set("v.markersLayer", markersLayer);
+            var markersLayer = new L.FeatureGroup();
+            component.set("v.markersLayer", markersLayer);
         }
         var markers = component.get("v.markers");
         var markersLength = markers.length;
         for(var i=0; i<markersLength; i++) {
             var tmp = markers[i].location;
             console.log(i + ": " + tmp);
-            var fooLoc = L.marker([tmp.latitude, tmp.longitude]).addTo(map);
+            var bizLoc = L.marker([tmp.latitude, tmp.longitude]).addTo(map);
+            markersLayer.addLayer(bizLoc);
         }
-        // console.log('map: ', map);
-        // console.log(component.get("v.location"));
-        // var loc = component.get("v.location");
-        // if (loc) {
-        //     var foo = component.get("v.location").split(',');
-        //     console.log(foo[0])
-        //     map.panTo([foo[0], foo[1]], { animate: false });
-        // }
+        map.addLayer(markersLayer);
     }
 })

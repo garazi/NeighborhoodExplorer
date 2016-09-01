@@ -3,6 +3,7 @@
     <aura:attribute name="location" type="Object" />
     <aura:attribute name="mapObj" type="Object" />
     <aura:attribute name="markers" type="Object" />
+    <aura:attribute name="markersLayer" type="Object" />
     <aura:attribute name="class" type="String" />
     <aura:handler name="change" value="{!v.location}" action="{!c.updateMap}" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
