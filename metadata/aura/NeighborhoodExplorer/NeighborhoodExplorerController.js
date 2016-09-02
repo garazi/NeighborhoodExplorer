@@ -31,8 +31,20 @@
         console.log('here')
     },
     showDetails : function(component, event, helper) {
+        var closeItem = component.get('v.openItem');
+        if (closeItem) {
+            closeItem = closeItem.querySelector('[data-details]');
+            $A.util.addClass(closeItem, 'slds-hide');
+        }
         var selectedItem = event.currentTarget;
-        console.log("it worked: ", selectedItem)
+        component.set('v.openItem', selectedItem);
+        var itemDetails = selectedItem.querySelector('[data-details]');
+        $A.util.removeClass(itemDetails, 'slds-hide');
+
+        var data = component.get('v.resultList');
+        var recID = selectedItem.dataset.record;
+        component.set("v.mapCenter", data[recID].location);
+        var tmp = component.get("v.mapCenter")
     },
     hideSpinner : function(component, event, helper) {
         helper.hideSpinner(component);
