@@ -3,17 +3,16 @@
         var date = new Date();
         date = date.getTime();
         console.log("Start: ", date)
-        var foo = component.get("v.currentRecord");
-        console.log("foo: ", foo)
-            // helper.initializeIt(component, currentRecord);
     },
     recordUpdated: function(component, event, helper) {
         var date = new Date();
         date = date.getTime();
         console.log("End: ", date)
+        var objectType = component.get("v.sObjectName");
         var currentRecord = component.get("v.currentRecord");
+        console.log('currentRecord: ', currentRecord);
         var searchTerm = component.get("v.defaultSearch");
-        helper.getData(component, currentRecord, searchTerm);
+        helper.getData(component, currentRecord, objectType, searchTerm);
     },
     updateLocation: function(component, event, helper) {
         var searchTerm = component.find("searchTerm").get("v.value");
@@ -23,9 +22,12 @@
         // var tab = event.target;
         // var tabId = tab.get("v.id");
         // console.log("tab: ", tabId);
+        var test = component.find("scrollableArea").getElement();
+        test.innerHTML = "";
+        var objectType = component.get("v.sObjectName");
         var currentRecord = component.get("v.currentRecord");
         var searchTerm = "shopping";
-        helper.getData(component, currentRecord, searchTerm);
+        helper.getData(component, currentRecord, objectType, searchTerm);
     },
     selectedTabber : function(component, event, helper) {
         console.log('here')
@@ -50,7 +52,6 @@
         helper.hideSpinner(component);
     }
 })
-
 
 // ({
 //     createLazyContent : function (cmp, event, helper) {

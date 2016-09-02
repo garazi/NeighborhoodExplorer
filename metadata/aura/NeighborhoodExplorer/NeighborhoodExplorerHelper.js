@@ -1,7 +1,20 @@
 ({
-    getData: function(component, recordAddress, searchTerm) {
+    getData: function(component, currentRecord, objectType, searchTerm) {
         this.showSpinner(component);
-        var recordAddress = recordAddress.MailingStreet + ',' + recordAddress.MailingCity + ',' + recordAddress.MailingState
+        switch (objectType) {
+            case 'Contact':
+                var recordAddress = currentRecord.MailingStreet + ',' + currentRecord.MailingCity + ',' + currentRecord.MailingState;
+                break;
+            case 'Account':
+                var recordAddress = currentRecord.BillingStreet + ',' + currentRecord.BillingCity + ',' + currentRecord.BillingState;
+                break;
+            case 'Property__c':
+                var recordAddress = currentRecord.Address__c + ',' + currentRecord.City__c + ',' + currentRecord.State__c;
+                break;
+            default:
+                return '{"error": "This component cannot be used on this page type."}';
+        }
+
         console.log('getting data for: ', recordAddress)
         var action = component.get("c.getListByAddress");
         action.setParams({

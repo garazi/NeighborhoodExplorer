@@ -1,6 +1,7 @@
-<aura:component controller="NeighborhoodServiceController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+<aura:component controller="NeighborhoodServiceController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global" >
     <force:recordPreview recordId="{!v.recordId}" targetRecord="{!v.currentRecord}" layoutType="FULL" />
-    <aura:attribute name="currentRecord" type="Contact" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="currentRecord" type="Object" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:attribute name="map" type="Object" />
     <aura:attribute name="mapCenter" type="Object" />
@@ -58,7 +59,7 @@
                     </div>
                 </div>
             </lightning:tab>
-            <lightning:tab label="Shopping" title="List of stores nearby" id="shoppingList" onfocus="{!c.doSomething}">
+            <lightning:tab label="Shopping" title="List of stores nearby" id="shoppingList" onfocus="{!c.doSomething}" >
                 <div class="tab-content-wrapper">
                     <div class="slds-hide" aura:id="spinner2">
                         <lightning:spinner size="medium" />
