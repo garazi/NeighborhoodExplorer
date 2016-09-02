@@ -4,7 +4,6 @@
     },
     updateMap: function(component, event, helper) {
         console.log('updateMap called')
-            // component.set("v.mapObj", "");
         var map = component.get("v.mapObj");
         var markersLayer = component.get("v.markersLayer");
         var recordLoc = component.get("v.location");
@@ -25,6 +24,11 @@
             component.set("v.markersLayer", markersLayer);
         }
         console.log("map: ", map);
+        if (markersLayer) {
+            console.log("clearing layers")
+            var foo = markersLayer.getLayers();
+            // markersLayer.clearLayers();
+        }
         var markers = component.get("v.markers");
         var markersLength = markers.length;
         for(var i=0; i<markersLength; i++) {
@@ -32,6 +36,7 @@
             var bizLoc = L.marker([tmp.latitude, tmp.longitude]).addTo(map);
             markersLayer.addLayer(bizLoc);
         }
+        component.set("v.markersLayer", markersLayer);
         map.addLayer(markersLayer);
     },
     panTo : function(component,event,helper) {
