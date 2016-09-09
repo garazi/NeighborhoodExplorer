@@ -21,16 +21,30 @@
     height: auto;
 }
 
+.THIS.small .tab-content-wrapper {
+    height: 25rem;
+}
+.THIS.medium .tab-content-wrapper {
+    height: 37rem;
+}
+.THIS.large .tab-content-wrapper {
+    height: 50rem;
+}
+
 .THIS.small .scroll-container {
-    height: 22rem;
+    height: 25rem;
+}
+
+.THIS.small .search ~ .scroll-container {
+    height: 21.45rem;
 }
 
 .THIS.medium .scroll-container {
-    height: 34rem;
+    height: 37rem;
 }
 
 .THIS.large .scroll-container {
-    height: 47rem;
+    height: 50rem;
 }
 
 .THIS.small .scroll-container.details {
@@ -62,6 +76,14 @@
 	padding: 0;
 }
 
+.THIS .slds-tabs--scoped .slds-tabs--scoped__content {
+    border: none;
+}
+
+.THIS .slds-form-element__help, .THIS span.slds-input {
+    display: none;
+}
+
 .THIS .slds-form-element__label {
     position: absolute!important;
     margin: -1px!important;
@@ -71,4 +93,12 @@
     height: 1px!important;
     overflow: hidden!important;
     clip: rect(0 0 0 0)!important;
+}
+
+.THIS .slds-dropdown--left {
+    left: auto;
+    right: 0;
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
 }

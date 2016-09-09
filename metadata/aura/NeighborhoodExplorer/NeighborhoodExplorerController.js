@@ -10,29 +10,49 @@
         console.log("End: ", date)
         var objectType = component.get("v.sObjectName");
         var currentRecord = component.get("v.currentRecord");
-        console.log('currentRecord: ', currentRecord);
+        $A.util.addClass(component.find('searchField'), 'slds-hide');
         var searchTerm = component.get("v.defaultSearch");
         helper.getData(component, currentRecord, objectType, searchTerm);
     },
-    updateLocation: function(component, event, helper) {
+    updateSearch: function(component, event, helper) {
+        var objectType = component.get("v.sObjectName");
+        var currentRecord = component.get("v.currentRecord");
         var searchTerm = component.find("searchTerm").get("v.value");
-        // component.set("v.location", searchTerm);
+        helper.getData(component, currentRecord, objectType, searchTerm);
     },
-    doSomething: function(component, event, helper) {
+    doShopping: function(component, event, helper) {
         // var tab = event.target;
         // var tabId = tab.get("v.id");
         // console.log("tab: ", tabId);
-        var test = component.find("scrollableArea").getElement();
-        test.innerHTML = "";
+        $A.util.addClass(component.find('searchField'), 'slds-hide');
         var objectType = component.get("v.sObjectName");
         var currentRecord = component.get("v.currentRecord");
-        var searchTerm = "shopping";
+        var searchTerm = component.get("{!v.tab2}");
         helper.getData(component, currentRecord, objectType, searchTerm);
     },
-    selectedTabber : function(component, event, helper) {
+    doRestaurants: function(component, event, helper) {
+        // var tab = event.target;
+        // var tabId = tab.get("v.id");
+        // console.log("tab: ", tabId);
+        $A.util.addClass(component.find('searchField'), 'slds-hide');
+        var objectType = component.get("v.sObjectName");
+        var currentRecord = component.get("v.currentRecord");
+        var searchTerm = component.get("{!v.tab3}");
+        helper.getData(component, currentRecord, objectType, searchTerm);
+    },
+    doSearch: function(component, event, helper) {
+        // $A.util.addClass(component.find('scrollableArea'), 'slds-hide');
+        $A.util.removeClass(component.find('searchField'), 'slds-hide');
+        component.set("v.resultList", [])
+            // var objectType = component.get("v.sObjectName");
+            // var currentRecord = component.get("v.currentRecord");
+            // var searchTerm = component.get("{!v.tab3}");
+            // helper.getData(component, currentRecord, objectType, searchTerm);
+    },
+    selectedTabber: function(component, event, helper) {
         console.log('here')
     },
-    showDetails : function(component, event, helper) {
+    showDetails: function(component, event, helper) {
         var closeItem = component.get('v.openItem');
         if (closeItem) {
             closeItem = closeItem.querySelector('[data-details]');
@@ -48,22 +68,7 @@
         component.set("v.mapCenter", data[recID].location);
         var tmp = component.get("v.mapCenter")
     },
-    hideSpinner : function(component, event, helper) {
+    hideSpinner: function(component, event, helper) {
         helper.hideSpinner(component);
     }
 })
-
-// ({
-//     createLazyContent : function (cmp, event, helper) {
-//         var tab = event.target;
-//         var tabId = tab.get('v.id');
-//         switch (tabId) {
-//             case 'badge':
-//                 helper.injectComponent('demo:ExampleBadge', tab);
-//                 break;
-//             case 'button' :
-//                 helper.injectComponent('demo:ExampleRegularButtons', tab);
-//                 break;
-//         }
-//     }
-// })
