@@ -32,11 +32,11 @@
 }
 
 .THIS.small .scroll-container {
-    height: 25rem;
+    height: 21.35rem;
 }
 
 .THIS.small .search ~ .scroll-container {
-    height: 21.45rem;
+    height: 18.6rem;
 }
 
 .THIS.medium .scroll-container {
@@ -64,6 +64,11 @@
 
 .THIS .ratingStars {
     max-width: 6.5rem;
+}
+
+.THIS .distance {
+    float: right;
+    text-align: right;
 }
 
 .THIS .map {

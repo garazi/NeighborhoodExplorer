@@ -11,6 +11,7 @@
         var objectType = component.get("v.sObjectName");
         var currentRecord = component.get("v.currentRecord");
         $A.util.addClass(component.find('searchField'), 'slds-hide');
+        $A.util.removeClass(component.find('searchField'), 'search');
         var searchTerm = component.get("v.defaultSearch");
         helper.getData(component, currentRecord, objectType, searchTerm);
     },
@@ -25,6 +26,7 @@
         // var tabId = tab.get("v.id");
         // console.log("tab: ", tabId);
         $A.util.addClass(component.find('searchField'), 'slds-hide');
+        $A.util.removeClass(component.find('searchField'), 'search');
         var objectType = component.get("v.sObjectName");
         var currentRecord = component.get("v.currentRecord");
         var searchTerm = component.get("{!v.tab2}");
@@ -35,6 +37,7 @@
         // var tabId = tab.get("v.id");
         // console.log("tab: ", tabId);
         $A.util.addClass(component.find('searchField'), 'slds-hide');
+        $A.util.removeClass(component.find('searchField'), 'search');
         var objectType = component.get("v.sObjectName");
         var currentRecord = component.get("v.currentRecord");
         var searchTerm = component.get("{!v.tab3}");
@@ -43,6 +46,7 @@
     doSearch: function(component, event, helper) {
         // $A.util.addClass(component.find('scrollableArea'), 'slds-hide');
         $A.util.removeClass(component.find('searchField'), 'slds-hide');
+        $A.util.addClass(component.find('searchField'), 'search');
         component.set("v.resultList", [])
             // var objectType = component.get("v.sObjectName");
             // var currentRecord = component.get("v.currentRecord");
@@ -70,5 +74,33 @@
     },
     hideSpinner: function(component, event, helper) {
         helper.hideSpinner(component);
+    },
+    sortNear: function(component, event, helper) {
+        var tmp = component.get("v.resultList");
+        tmp.sort(function(a, b) {
+            if (a.distance > b.distance) {
+                return 1;
+            }
+            if (a.distance < b.distance) {
+                return -1;
+            }
+            // a must be equal to b
+            return 0;
+        });
+        component.set("v.resultList", tmp);
+    },
+    sortFar: function(component, event, helper) {
+        var tmp = component.get("v.resultList");
+        tmp.sort(function(a, b) {
+            if (a.distance < b.distance) {
+                return 1;
+            }
+            if (a.distance > b.distance) {
+                return -1;
+            }
+            // a must be equal to b
+            return 0;
+        });
+        component.set("v.resultList", tmp);
     }
 })
