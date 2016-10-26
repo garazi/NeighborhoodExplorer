@@ -1,14 +1,17 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <ltng:require styles="/resource/leaflet/leaflet.css" scripts="/resource/leafletMap/leaflet.js" />    
+    <ltng:require styles="/resource/leafletMap/leaflet.css" scripts="/resource/leafletMap/leaflet.js" />    
     <aura:attribute name="location" type="Object" />
     <aura:attribute name="mapObj" type="Object" />
     <aura:attribute name="markers" type="Object" />
     <aura:attribute name="markersLayer" type="Object" />
     <aura:attribute name="mapCenter" type="Object" />
     <aura:attribute name="class" type="String" />
+    <aura:attribute name="address" type="String" />
     <aura:handler name="change" value="{!v.location}" action="{!c.updateMap}" />
     <aura:handler name="change" value="{!v.markers}" action="{!c.updateMap}" />
     <aura:handler name="change" value="{!v.mapCenter}" action="{!c.panTo}" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <div id="leafMap" aura:id="leafletMap" class="{!'map ' + v.class}"></div>
+    <div class="wrapper">
+        <div id="leafMap" aura:id="leafletMap" class="map"></div>
+    </div>
 </aura:component>

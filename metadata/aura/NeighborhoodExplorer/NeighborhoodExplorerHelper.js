@@ -4,12 +4,15 @@
         switch (objectType) {
             case 'Contact':
                 var recordAddress = currentRecord.MailingStreet + ',' + currentRecord.MailingCity + ',' + currentRecord.MailingState;
+                component.set("v.address", currentRecord.MailingStreet);
                 break;
             case 'Account':
                 var recordAddress = currentRecord.BillingStreet + ',' + currentRecord.BillingCity + ',' + currentRecord.BillingState;
+                component.set("v.address", currentRecord.BillingStreet);
                 break;
             case 'Property__c':
                 var recordAddress = currentRecord.Address__c + ',' + currentRecord.City__c + ',' + currentRecord.State__c;
+                component.set("v.address", currentRecord.Address__c);
                 break;
             default:
                 return '{"error": "This component cannot be used on this page type."}';

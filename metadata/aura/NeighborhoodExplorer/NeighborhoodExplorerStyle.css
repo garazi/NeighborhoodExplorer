@@ -1,11 +1,16 @@
 .THIS {
-    position: relative;
-    overflow: hidden;
-    min-height: 28rem;
+    /*position: relative;
+    overflow: hidden;*/
+    /*min-height: 28rem;*/
+}
+
+/* REMOVE THIS WHEN THE BUG IS FIXED */
+.THIS .slds-text-align--center {
+    text-align: left;
 }
 
 .THIS.small {
-    height: 48rem;
+    /*height: 48rem;*/
 }
 
 .THIS.medium {
@@ -20,7 +25,14 @@
     min-height: 100vh;
     height: auto;
 }
-
+.THIS .slds-section .slds-is-open .slds-section__content.sectionBar {
+   -webkit-transition: height .4s ease-in-out;
+    transition: height .4s ease-in-out !important;
+}
+.THIS .tab-content-wrapper {
+    position: relative;
+    overflow: hidden;
+}
 .THIS.small .tab-content-wrapper {
     height: 25rem;
 }
@@ -84,8 +96,11 @@
 .THIS .slds-tabs--scoped .slds-tabs--scoped__content {
     border: none;
 }
+.THIS .slds-tabs--default {
+    background-color: #FFF;
+}
 
-.THIS .slds-form-element__help, .THIS span.slds-input {
+.THIS .slds-form-element__help, .THIS span.slds-input, .THIS .slds-tabs--default__content.slds-show {
     display: none;
 }
 

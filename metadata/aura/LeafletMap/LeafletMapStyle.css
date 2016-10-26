@@ -1,3 +1,25 @@
 .THIS {
     min-height: 240px;
+    position: relative;
+}
+
+.THIS .wrapper {
+	/*position: relative;*/
+}
+
+.THIS div.overlayBar {
+	/*position: absolute;
+	top: 0;
+	left: 0;*/
+	/*height: 1.5rem;*/
+	position: relative;
+	width: 100%;
+	background-color: rgba(244, 246, 249,.9);
+	z-index: 9999;
+}
+
+.THIS #leafMap {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
