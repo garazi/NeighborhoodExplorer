@@ -1,6 +1,21 @@
 ({
-    getData: function(component, currentRecord, objectType, searchTerm) {
+    getData: function(component, searchTerm) {
         this.showSpinner(component);
+        $A.util.addClass(component.find('searchField'), 'slds-hide');
+        $A.util.removeClass(component.find('searchField'), 'search');
+
+        var objectType = component.get("v.sObjectName");
+        var currentRecord = component.get("v.currentRecord");
+        if (searchTerm === 'Search') {
+            $A.util.removeClass(component.find('searchField'), 'slds-hide');
+            $A.util.addClass(component.find('searchField'), 'search');
+            searchTerm = component.find("searchTerm").get("v.value");
+            component.set("v.resultList", []);
+            return;
+        } else if (component.find("searchTerm").get("v.value")) {
+            $A.util.removeClass(component.find('searchField'), 'slds-hide');
+            $A.util.addClass(component.find('searchField'), 'search');
+        }
         switch (objectType) {
             case 'Contact':
                 var recordAddress = currentRecord.MailingStreet + ',' + currentRecord.MailingCity + ',' + currentRecord.MailingState;

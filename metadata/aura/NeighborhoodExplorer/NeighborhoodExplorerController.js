@@ -3,68 +3,29 @@
         var date = new Date();
         date = date.getTime();
         console.log("Start: ", date);
-        component.set("v.defaultSearch", component.get('v.tab1'));
+        var tabNames = component.get("v.tabs");
+        tabNames = tabNames.split(',');
+        tabNames.push("Search");
+        component.set("v.tabNames", tabNames);
+        component.set("v.defaultSearch", tabNames[0]);
     },
-    recordUpdated: function(component, event, helper) {
+    doLookup: function(component, event, helper) {
         var date = new Date();
         date = date.getTime();
-        console.log("End: ", date)
-        var objectType = component.get("v.sObjectName");
-        var currentRecord = component.get("v.currentRecord");
-        $A.util.addClass(component.find('searchField'), 'slds-hide');
-        $A.util.removeClass(component.find('searchField'), 'search');
+        console.log("End: ", date);       
         var searchTerm = component.get("v.defaultSearch");
-        helper.getData(component, currentRecord, objectType, searchTerm);
-    },
-    updateSearch: function(component, event, helper) {
-        var objectType = component.get("v.sObjectName");
-        var currentRecord = component.get("v.currentRecord");
-        var searchTerm = component.find("searchTerm").get("v.value");
-        helper.getData(component, currentRecord, objectType, searchTerm);
-    },
-    doShopping: function(component, event, helper) {
-        // var tab = event.currentTarget;
-        // var tabId = tab.get("v.id");
-        // console.log("tab: ", tab);
-        // $A.util.addClass(component.find('searchField'), 'slds-hide');
-        // $A.util.removeClass(component.find('searchField'), 'search');
-        // var objectType = component.get("v.sObjectName");
-        // var currentRecord = component.get("v.currentRecord");
-        // var searchTerm = component.get("{!v.tab2}");
-        // helper.getData(component, currentRecord, objectType, searchTerm);
-    },
-    doRestaurants: function(component, event, helper) {
-        // var tab = event.target;
-        // var tabId = tab.get("v.id");
-        // console.log("tab: ", tabId);
-        // $A.util.addClass(component.find('searchField'), 'slds-hide');
-        // $A.util.removeClass(component.find('searchField'), 'search');
-        // var objectType = component.get("v.sObjectName");
-        // var currentRecord = component.get("v.currentRecord");
-        // var searchTerm = component.get("{!v.tab3}");
-        // helper.getData(component, currentRecord, objectType, searchTerm);
-    },
-    doSearch: function(component, event, helper) {
-        // $A.util.addClass(component.find('scrollableArea'), 'slds-hide');
-        $A.util.removeClass(component.find('searchField'), 'slds-hide');
-        $A.util.addClass(component.find('searchField'), 'search');
-        component.set("v.resultList", [])
-            // var objectType = component.get("v.sObjectName");
-            // var currentRecord = component.get("v.currentRecord");
-            // var searchTerm = component.get("{!v.tab3}");
-            // helper.getData(component, currentRecord, objectType, searchTerm);
+        helper.getData(component, searchTerm);
     },
     selectedTab: function(component, event, helper) {
-        console.log('here');
         var tab = event.detail.selectedTab;
         var tabId = tab.get("v.id");
-        console.log("tab: ", tabId);
-        // var objectType = component.get("v.sObjectName");
-        // var currentRecord = component.get("v.currentRecord");
-        // $A.util.addClass(component.find('searchField'), 'slds-hide');
-        // $A.util.removeClass(component.find('searchField'), 'search');
-        // var searchTerm = tabId;
-        // helper.getData(component, currentRecord, objectType, searchTerm);
+        component.set("v.defaultSearch", tabId);
+        var searchTerm = component.get("v.defaultSearch");
+        helper.getData(component, searchTerm);
+    },
+    updateSearch: function(component, event, helper) {
+        var searchTerm = component.find("searchTerm").get("v.value");
+        helper.getData(component, searchTerm);
     },
     showDetails: function(component, event, helper) {
         var closeItem = component.get('v.openItem');

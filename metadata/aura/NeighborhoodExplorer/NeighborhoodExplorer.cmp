@@ -9,6 +9,8 @@
     <aura:attribute name="tab1" type="String" default="Schools" />
     <aura:attribute name="tab2" type="String" default="Shopping" />
     <aura:attribute name="tab3" type="String" default="Restaurants" />
+    <aura:attribute name="tabs" type="String" />
+    <aura:attribute name="tabNames" type="Object" />
     <aura:attribute name="map" type="Object" />
     <aura:attribute name="mapCenter" type="Object" />
     <aura:attribute name="markers" type="Object" />
@@ -20,20 +22,23 @@
     <aura:attribute name="dateTime" type="Integer" />
     <aura:attribute name="resultList" type="Object[]" access="global" />
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <aura:handler name="change" value="{!v.currentRecord}" action="{!c.recordUpdated}" />
+    <aura:handler name="change" value="{!v.currentRecord}" action="{!c.doLookup}" />
     <aura:handler name="change" value="{!v.resultList}" action="{!c.hideSpinner}" />
+
     <lightning:card iconName="utility:location" class="small" aura:id="main">
         <aura:set attribute="title">
             Neighborhood Explorer
             <p class="slds-text-body--small">{!v.address}</p>
         </aura:set>
+
         <c.LeafletMap location="{!v.location}" address="{!v.address}" markers="{!v.resultList}" mapCenter="{!v.mapCenter}" />
-        <lightning:tabset selectedTabId="schoolList" aura:id="myTabs" onselect="{!c.selectedTab}" class="">
-            <lightning:tab label="{!v.tab1}" title="List of restaurants nearby" id="schoolList" onfocus="{!c.recordUpdated}" />
-            <lightning:tab label="{!v.tab2}" aura:id="tab2" title="List of stores nearby" id="shoppingList" onfocus="{!c.doShopping}" />
-            <lightning:tab label="{!v.tab3}" title="List of restaurants nearby" id="restaurantList" onfocus="{!c.doRestaurants}" />
-            <lightning:tab label="Search" title="Search for other things in the Neighborhood" id="searchList" onfocus="{!c.doSearch}" />
+
+        <lightning:tabset selectedTabId="{!v.defaultSearch}" aura:id="myTabs" onselect="{!c.selectedTab}">
+            <aura:iteration items="{!v.tabNames}" var="item" indexVar="i">
+                <lightning:tab label="{!item}" id="{!item}" title="{!'List of' + item + 'nearby.'}" />
+            </aura:iteration>
         </lightning:tabset>
+
         <div class="tab-content-wrapper slds-tabs--scoped__content">
             <lightning:layout multipleRows="false" class="slds-p-top--small slds-p-left--small slds-p-right--small slds-hide" aura:id="searchField">
                 <lightning:layoutItem flexibility="auto" class="slds-m-right--small">
