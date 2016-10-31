@@ -6,7 +6,7 @@
         console.log('updateMap called')
         var recordLoc = component.get("v.location");
         // LS Team:
-        // var map = component.get("v.mapObj");
+        // var map = component.get("v.leafletMap");
         var map = component._mapObj;
         if (!map) {
             helper.createMap(component, recordLoc)
@@ -15,7 +15,7 @@
         }        
     },
     panTo: function(component, event, helper) {
-        // var map = component.get("v.mapObj");
+        // var map = component.get("v.leafletMap");
         var map = component._mapObj;
         var center = component.get("v.mapCenter")
         map.panTo([center.latitude, center.longitude]);

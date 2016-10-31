@@ -33,7 +33,7 @@
 
         <c.LeafletMap location="{!v.location}" address="{!v.address}" markers="{!v.resultList}" mapCenter="{!v.mapCenter}" />
 
-        <lightning:tabset selectedTabId="{!v.defaultSearch}" aura:id="myTabs" onselect="{!c.selectedTab}">
+        <lightning:tabset selectedTabId="{!v.defaultSearch}" aura:id="searchTabGroup" onselect="{!c.selectedTab}">
             <aura:iteration items="{!v.tabNames}" var="item" indexVar="i">
                 <lightning:tab label="{!item}" id="{!item}" title="{!'List of' + item + 'nearby.'}" />
             </aura:iteration>

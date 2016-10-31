@@ -1,21 +1,23 @@
 ({
     getData: function(component, searchTerm) {
-        this.showSpinner(component);
         $A.util.addClass(component.find('searchField'), 'slds-hide');
         $A.util.removeClass(component.find('searchField'), 'search');
-
+        var selectedTab = component.find("searchTabGroup").get("v.selectedTabId");
         var objectType = component.get("v.sObjectName");
         var currentRecord = component.get("v.currentRecord");
-        if (searchTerm === 'Search') {
+
+        if (selectedTab === 'Search') {
             $A.util.removeClass(component.find('searchField'), 'slds-hide');
             $A.util.addClass(component.find('searchField'), 'search');
             searchTerm = component.find("searchTerm").get("v.value");
             component.set("v.resultList", []);
-            return;
-        } else if (component.find("searchTerm").get("v.value")) {
-            $A.util.removeClass(component.find('searchField'), 'slds-hide');
-            $A.util.addClass(component.find('searchField'), 'search');
+            if (searchTerm === null) {
+                return;
+            }
         }
+
+        this.showSpinner(component);
+
         switch (objectType) {
             case 'Contact':
                 var recordAddress = currentRecord.MailingStreet + ',' + currentRecord.MailingCity + ',' + currentRecord.MailingState;
@@ -51,7 +53,7 @@
     populateList: function(component, data) {
         console.log("populating list");
         var loc = component.get("v.location");
-        if (loc && loc.latitude == data.location.latitude) {
+        if (loc && loc.latitude === data.location.latitude) {
             console.log('same location')
             component.set("v.resultList", data.bizArray);
         } else {
