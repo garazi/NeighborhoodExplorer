@@ -6,9 +6,6 @@
     <aura:attribute name="sObjectName" type="String" />
     <aura:attribute name="currentRecord" type="Object" />
     <aura:attribute name="defaultExpiration" type="String" default="45" />
-    <aura:attribute name="tab1" type="String" default="Schools" />
-    <aura:attribute name="tab2" type="String" default="Shopping" />
-    <aura:attribute name="tab3" type="String" default="Restaurants" />
     <aura:attribute name="tabs" type="String" />
     <aura:attribute name="tabNames" type="Object" />
     <aura:attribute name="map" type="Object" />

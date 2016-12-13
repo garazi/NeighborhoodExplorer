@@ -3,6 +3,8 @@
         var date = new Date();
         date = date.getTime();
         console.log("Start: ", date);
+        var foo = component.get("v.sObjectName");
+        console.log('foo: ', component.get("v.sObjectName"));
         var tabNames = component.get("v.tabs");
         tabNames = tabNames.split(',');
         tabNames.push("Search");
